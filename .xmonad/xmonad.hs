@@ -196,6 +196,7 @@ myManageHook = composeAll . concat $
         , [className =? c --> doShift (myWorkspaces !! 5) <+> viewShift (myWorkspaces !! 5)        | c <- mySocial]
         , [className =? c --> doShift (myWorkspaces !! 6) <+> viewShift (myWorkspaces !! 6)        | c <- myGames]
         , [className =? c --> doShift (myWorkspaces !! 7) <+> viewShift (myWorkspaces !! 7)        | c <- myExt]
+        , [className =? c --> doShift (myWorkspaces !! 8) <+> viewShift (myWorkspaces !! 8)        | c <- myMusic]
         , [className =? c --> doCenterFloat                                                        | c <- myFloatC]
         , [appName   =? a --> doCenterFloat                                                        | a <- myFloatA]
         , [title     =? t --> doCenterFloat                                                        | t <- myFloatT]
@@ -216,6 +217,8 @@ myManageHook = composeAll . concat $
         mySocial     = ["ViberPC","TelegramDesktop"]
         myGames      = ["Crossover"]
         myExt        = ["TeamViewer"]
+        myMusic      = ["Spotify"]
+
 --FLOATING
         myFloatC     = ["Oblogout", "GParted","Bleachbit","Nm-connection-editor","System-config-printer.py"]
         myFloatA     = ["xarchiver","Update","teamviewer","engrampa"]
@@ -230,7 +233,10 @@ myManageHook = composeAll . concat $
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- SUPER + FUNCTION KEYS
 
-  [ ((modMask, xK_d), spawn  "rofi -show run" )
+  [ 
+  ((modMask, xK_a), spawn  "pamac-manager" )
+  , ((modMask, xK_c), spawn  "discord" )
+  , ((modMask, xK_d), spawn  "rofi -show run" )
   , ((modMask, xK_e), spawn "subl3")
 
   --, ((modMask, xK_f), sendMessage $ Toggle NBFULL)
@@ -239,7 +245,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_r), spawn $ "rofi-theme-selector" )
   , ((modMask, xK_t), spawn $ "urxvt" )
   , ((modMask, xK_v), spawn $ "pavucontrol" )
-  , ((modMask, xK_w), spawn $ "vivaldi-stable" )
+  , ((modMask, xK_w), spawn myBrowser )
   , ((modMask, xK_q), kill )
   , ((modMask, xK_y), spawn $ "polybar-msg cmd toggle" )
   , ((modMask, xK_x), spawn $ "oblogout" )
