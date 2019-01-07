@@ -13,6 +13,7 @@ sudo cp usr/local/bin/* /usr/local/bin/
 # Copy other
 #cp .stalonetrayrc $HOME/
 cp .Xresources $HOME/
+cp .xmobarrc $HOME/
 
 # Oh-my-zsh
 cd $HOME/xmonad-xmobar/powerlevel9k/
