@@ -1,0 +1,80 @@
+Config {
+    font = "xft:Inconsolata LGC:size=12:style=Medium",
+    additionalFonts = ["xft:Inconsolata:size=10:style=Bold","xft:FontAwesome:style=Regular:size=16"]
+   , bgColor          = "#161616"
+   , fgColor          = "white"
+   , position         = Static { xpos = 0, ypos = 0, width = 1920, height = 35 },
+   , textOffset       = -1
+   , iconOffset       = -1
+   , alpha            = 0
+   , border           = NoBorder
+   , borderWidth      = 1
+   , borderColor      = "cyan"
+   , iconRoot         = "/home/krive/xbm_icons"
+   , lowerOnStart     = True
+   , hideOnStart      = False
+   , allDesktops      = True
+   , overrideRedirect = True
+   , pickBroadest     = True
+   , persistent       = True
+   , sepChar          = "%"
+   , alignSep         = "}{"
+   , template         = "<fc=blue><fn=2><action=`xdotool key super+Right` button=4><action=`xdotool key super+Left` button=5>%UnsafeStdinReader%</action></action></fn></fc>}%date%{<fc=green> <action=`XMPamacup1` button=1><action=`XMYAYUP1` button=3>%update%</action></action> <fn=2>  </fn></fc> %kbd%  %coretemp% %multicpu%  %memory%  <action=`pavucontrol` button=3><action=`XMMute` button=1><action=`xdotool key super+Up` button=4><action=`xdotool key super+Down` button=5>%XVol% </action></action></action></action> %trayerpad% "
+   , commands         =
+      [ Run MultiCpu                            [ "--template" , "<fc=green><fn=2>  </fn></fc><fc=white></fc><total>%"
+                                                , "--Low"      , "50"        -- units: %
+                                                , "--High"     , "85"        -- units: %
+                                                , "--low"      , "#d2d4dc"
+                                                , "--normal"   , "#d2d4dc"
+                                                , "--high"     , "#fd0537"
+                                                ] 10
+
+      , Run CoreTemp                            [ "--template" , "<fc=green><fn=2>  </fn></fc><fc=green></fc><core0>°C"
+                                                , "--Low"      , "2"         -- units: °C
+                                                , "--High"     , "80"        -- units: °C
+                                                , "--low"      , "#ffffff"
+                                                , "--normal"   , "#ffffff"
+                                                , "--high"     , "#8F0005"
+                                                ] 10
+
+      , Run Memory                              [ "--template" ,"<fc=green><fn=2>  </fn></fc><fc=white></fc><usedratio>%"
+                                                ] 10
+
+      , Run Battery                             [ "--template", "<fc=green><acstatus></fc> <left>%"
+                                                , "--Low"      , "10"        -- units: %
+                                                , "--High"     , "95"        -- units: %
+                                                , "--low"      , "#8F0005"
+                                                , "--high"     , "#ffffff"
+                                                , "--"
+                                                , "-O", "<fc=green><icon=ac10.xbm/></fc>"
+                                                , "-H", "-20"
+                                                , "-i", "<icon=ac10.xbm/>"
+                                                , "-o", "<icon=batt10.xbm/>"
+                                                ] 10
+
+
+       , Run Wireless           "wlp3s0"        ["-t", "<fc=green>Wifi:</fc> <quality>"
+                                                ] 10
+
+       , Run Com "/bin/bash" ["-c", "XMgetvolume"]  "XVol" 10
+
+	
+	--, Run Mpris2 "spotify" ["-t", "<artist> - [<composer>] <title>"] 10
+	
+  
+
+
+
+       , Run Kbd                                [ ("hu" , "<fc=#FFFFFF>HU</fc>")
+                                                , ("us" , "<fc=#8F0005>US</fc>")
+                                                ]
+
+       , Run UnsafeStdinReader
+
+	, Run Com "/bin/bash" ["-c",  "XMKupdate"] "update" 600
+
+       , Run Date                                "%Y-%m-%d  %H:%M" "date" 60
+       --, Run Com "/bin/bash" ["-c", "traystart"] "tray" 10
+       , Run Com "/bin/bash" ["-c", "trayerpad"]  "trayerpad" 10
+                       ]
+}

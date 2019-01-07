@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# arch
+arch=`checkupdates | wc -l`
+# AUR
+aur=`checkupdates-aur | wc -l`
+
+#if [ "$arch" -eq "0" -a "$aur" -eq "0" ]
+  echo "<fc=blue><fn=2>   </fn></fc><fc=blue>$arch </fc><fc=blue><fn=2>  </fn></fc><fc=blue>$aur </fc> "
+#fi 
+exit 0
+
